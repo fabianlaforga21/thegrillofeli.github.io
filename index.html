@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Grill of Eli — Smashburgers & Verse Friet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --off-black: #141414;
+      --charcoal: #1e1e1e;
+      --red: #d42b2b;
+      --red-dark: #a81f1f;
+      --red-bright: #ff3535;
+      --cream: #f5ead8;
+      --cream-dark: #e8d9c0;
+      --gold: #e8b84b;
+      --white: #fafafa;
+      --gray: #666;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 48px;
+      background: transparent;
+      transition: background 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--red); }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-cta {
+      background: var(--red);
+      color: var(--white) !important;
+      opacity: 1 !important;
+      padding: 10px 22px;
+      border-radius: 2px;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--red-bright) !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 0 48px 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 65% 50%, rgba(212,43,43,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(232,184,75,0.08) 0%, transparent 60%),
+        var(--off-black);
+    }
+    /* Noise texture */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 150px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      animation: heroIn 0.9s ease forwards;
+    }
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(32px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      animation: heroIn 0.9s 0.1s ease both;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 30px; height: 2px;
+      background: var(--gold);
+    }
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4.5rem, 10vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: 0.01em;
+      color: var(--cream);
+      margin-bottom: 28px;
+      animation: heroIn 0.9s 0.2s ease both;
+    }
+    h1 .red { color: var(--red); }
+    h1 .gold { color: var(--gold); }
+    .hero-sub {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: rgba(245,234,216,0.7);
+      max-width: 480px;
+      margin-bottom: 40px;
+      animation: heroIn 0.9s 0.35s ease both;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 44px;
+      animation: heroIn 0.9s 0.45s ease both;
+    }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border: 1px solid rgba(245,234,216,0.15);
+      border-radius: 2px;
+      color: rgba(245,234,216,0.8);
+      background: rgba(255,255,255,0.03);
+    }
+    .badge .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    .badge .dot.gold { background: var(--gold); }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: heroIn 0.9s 0.55s ease both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--red-bright); transform: translateY(-2px); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--cream);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 15px 30px;
+      border: 1.5px solid rgba(245,234,216,0.3);
+      border-radius: 2px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .btn-secondary:hover { border-color: var(--cream); transform: translateY(-2px); }
+
+    /* Hero image side */
+    .hero-visual {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      overflow: hidden;
+      animation: heroIn 0.9s 0.15s ease both;
+    }
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.6;
+      mix-blend-mode: luminosity;
+    }
+    .hero-visual-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--off-black) 0%, transparent 50%),
+                  linear-gradient(0deg, var(--off-black) 0%, transparent 30%);
+    }
+    @keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+    /* ─── SCROLL TICKER ─── */
+    .ticker {
+      background: var(--red);
+      overflow: hidden;
+      padding: 14px 0;
+      border-top: 2px solid var(--red-dark);
+      border-bottom: 2px solid var(--red-dark);
+    }
+    .ticker-inner {
+      display: flex;
+      gap: 0;
+      animation: ticker 18s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      padding: 0 36px;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .ticker-item::after { content: '●'; opacity: 0.4; font-size: 0.5rem; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 100px 48px; }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--red);
+    }
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--cream);
+      margin-bottom: 20px;
+    }
+    h2 .red { color: var(--red); }
+
+    /* ─── ABOUT ─── */
+    .about {
+      background: var(--charcoal);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: rgba(245,234,216,0.75);
+      margin-bottom: 20px;
+    }
+    .about-text p strong {
+      color: var(--cream);
+      font-weight: 600;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat {
+      padding: 32px 28px;
+      background: var(--charcoal);
+    }
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.2rem;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(245,234,216,0.5);
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.7) contrast(1.1);
+    }
+    .about-img-label {
+      position: absolute;
+      bottom: 24px;
+      left: -20px;
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      padding: 12px 20px;
+      writing-mode: horizontal-tb;
+    }
+
+    /* ─── MENU ─── */
+    .menu { background: var(--off-black); }
+    .menu-intro {
+      max-width: 560px;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(245,234,216,0.65);
+      margin-bottom: 64px;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.04);
+    }
+    .menu-card {
+      background: var(--off-black);
+      padding: 44px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .menu-card:hover { background: rgba(212,43,43,0.06); }
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .menu-card:hover::before { transform: scaleX(1); }
+    .menu-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4.5rem;
+      color: rgba(212,43,43,0.12);
+      line-height: 1;
+      position: absolute;
+      top: 24px; right: 28px;
+      letter-spacing: -0.02em;
+    }
+    .menu-emoji {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .menu-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.7rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+    .menu-desc {
+      font-size: 0.93rem;
+      line-height: 1.65;
+      color: rgba(245,234,216,0.6);
+      margin-bottom: 20px;
+    }
+    .menu-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border: 1px solid rgba(232,184,75,0.35);
+      color: var(--gold);
+      border-radius: 1px;
+    }
+
+    /* ─── QUALITY ─── */
+    .quality {
+      background: var(--charcoal);
+      position: relative;
+      overflow: hidden;
+    }
+    .quality::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,43,43,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .quality-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      margin-top: 60px;
+    }
+    .quality-item {
+      display: flex;
+      gap: 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .quality-item:last-child { border-bottom: none; }
+    .quality-icon {
+      width: 50px;
+      height: 50px;
+      flex-shrink: 0;
+      background: rgba(212,43,43,0.1);
+      border: 1px solid rgba(212,43,43,0.2);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .quality-item h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .quality-item p {
+      font-size: 0.93rem;
+      line-height: 1.65;
+      color: rgba(245,234,216,0.6);
+    }
+    .quality-visual {
+      position: sticky;
+      top: 100px;
+    }
+    .quality-quote {
+      background: var(--red);
+      padding: 48px 40px;
+      margin-bottom: 2px;
+    }
+    .quality-quote blockquote {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      line-height: 1.1;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .quality-quote cite {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      font-style: normal;
+    }
+    .quality-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.6) contrast(1.15);
+    }
+
+    /* ─── LOCATIONS ─── */
+    .locations { background: var(--off-black); }
+    .locations-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.04);
+      margin-top: 60px;
+    }
+    .loc-card {
+      background: var(--off-black);
+      padding: 36px 28px;
+      transition: background 0.3s;
+      position: relative;
+    }
+    .loc-card:hover { background: rgba(212,43,43,0.08); }
+    .loc-day {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--red);
+      line-height: 1;
+      margin-bottom: 14px;
+      letter-spacing: 0.03em;
+    }
+    .loc-time {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .loc-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .loc-address {
+      font-size: 0.88rem;
+      color: rgba(245,234,216,0.45);
+      line-height: 1.5;
+    }
+    .loc-closed {
+      position: absolute;
+      top: 16px; right: 16px;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(245,234,216,0.25);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 4px 8px;
+    }
+    .locations-note {
+      margin-top: 32px;
+      font-size: 0.88rem;
+      color: rgba(245,234,216,0.4);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .locations-note a {
+      color: var(--red);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* ─── SOCIAL PROOF ─── */
+    .social-proof { background: var(--charcoal); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(255,255,255,0.04);
+      margin-top: 60px;
+    }
+    .review-card {
+      background: var(--charcoal);
+      padding: 36px 32px;
+    }
+    .stars {
+      color: var(--gold);
+      font-size: 1rem;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+    }
+    .review-text {
+      font-size: 0.97rem;
+      line-height: 1.7;
+      color: rgba(245,234,216,0.7);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    .review-author {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(245,234,216,0.4);
+    }
+    .review-author span {
+      color: var(--red);
+    }
+
+    /* ─── INSTAGRAM CTA ─── */
+    .insta-cta {
+      background: var(--off-black);
+      text-align: center;
+      padding: 100px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .insta-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(212,43,43,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .insta-cta h2 {
+      font-size: clamp(3rem, 6vw, 6rem);
+      margin-bottom: 16px;
+    }
+    .insta-cta p {
+      font-size: 1.05rem;
+      color: rgba(245,234,216,0.6);
+      margin-bottom: 40px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      padding: 60px 48px 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    .footer-brand {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.05em;
+      color: var(--cream);
+      margin-bottom: 12px;
+    }
+    .footer-brand span { color: var(--red); }
+    .footer-tagline {
+      font-size: 0.88rem;
+      color: rgba(245,234,216,0.4);
+      max-width: 220px;
+      line-height: 1.6;
+    }
+    .footer-links h4 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,234,216,0.35);
+      margin-bottom: 16px;
+    }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      font-size: 0.9rem;
+      color: rgba(245,234,216,0.6);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-contact p {
+      font-size: 0.9rem;
+      color: rgba(245,234,216,0.6);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-contact a { color: var(--red); text-decoration: none; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy {
+      font-size: 0.8rem;
+      color: rgba(245,234,216,0.25);
+    }
+    .social-icons {
+      display: flex;
+      gap: 16px;
+    }
+    .social-icon {
+      width: 38px; height: 38px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(245,234,216,0.5);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-icon:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 70px 24px; }
+      .hero { padding: 0 24px; min-height: 90vh; }
+      .hero-visual { display: none; }
+      .about { grid-template-columns: 1fr; gap: 48px; }
+      .about-img-wrap { display: none; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .quality-grid { grid-template-columns: 1fr; }
+      .locations-grid { grid-template-columns: 1fr 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      footer { padding: 48px 24px 32px; }
+      .footer-top { flex-direction: column; }
+      .insta-cta { padding: 70px 24px; }
+    }
+    @media (max-width: 500px) {
+      .locations-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a class="nav-logo" href="#"><span>THE GRILL</span> OF ELI</a>
+    <ul class="nav-links">
+      <li><a href="#over">Over ons</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#kwaliteit">Kwaliteit</a></li>
+      <li><a href="#locaties">Locaties</a></li>
+      <li><a href="https://www.instagram.com/thegrillofeli/" target="_blank" class="nav-cta">Instagram →</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Pijnacker &amp; Nootdorp's finest</div>
+      <h1>SMASH<br /><span class="red">BURGER</span><br /><span class="gold">HEAVEN</span></h1>
+      <p class="hero-sub">
+        100% rundvlees van grasgevoerde koeien. Dagverse briochebroodjes. Verse friet.
+        Eliroy brengt de perfecte smashburger rechtstreeks naar jouw buurt.
+      </p>
+      <div class="hero-badges">
+        <div class="badge"><span class="dot"></span>100% Rundvlees</div>
+        <div class="badge"><span class="dot gold"></span>Dagverse briochebroodjes</div>
+        <div class="badge"><span class="dot"></span>Verse friet</div>
+        <div class="badge"><span class="dot gold"></span>Lokale leveranciers</div>
+      </div>
+      <div class="hero-buttons">
+        <a href="#locaties" class="btn-primary">Vind de truck →</a>
+        <a href="#menu" class="btn-secondary">Bekijk het menu</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <img
+        src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=900&auto=format&fit=crop&q=80"
+        alt="Smashburger"
+      />
+      <div class="hero-visual-overlay"></div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner" id="ticker">
+      <span class="ticker-item">Smashburgers</span>
+      <span class="ticker-item">Verse Friet</span>
+      <span class="ticker-item">Bacon Jam Burger</span>
+      <span class="ticker-item">100% Rundvlees</span>
+      <span class="ticker-item">Pijnacker</span>
+      <span class="ticker-item">Nootdorp</span>
+      <span class="ticker-item">Dagvers</span>
+      <span class="ticker-item">Lokale Kwaliteit</span>
+      <!-- duplicate for seamless loop -->
+      <span class="ticker-item">Smashburgers</span>
+      <span class="ticker-item">Verse Friet</span>
+      <span class="ticker-item">Bacon Jam Burger</span>
+      <span class="ticker-item">100% Rundvlees</span>
+      <span class="ticker-item">Pijnacker</span>
+      <span class="ticker-item">Nootdorp</span>
+      <span class="ticker-item">Dagvers</span>
+      <span class="ticker-item">Lokale Kwaliteit</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="over">
+    <div class="about-text fade-up">
+      <div class="section-label">Het Verhaal</div>
+      <h2>BORN ON THE<br /><span class="red">GRILL</span></h2>
+      <p>
+        Wat begon als een <strong>hobby op de kerstmarkt in Pijnacker Zuid</strong> is uitgegroeid tot de populairste smashburger foodtruck in de regio. Eliroy Dijkstra volgde zijn passie voor BBQ en keerde het om tot iets moois.
+      </p>
+      <p>
+        Na braderieën, jaarmarkten en uitverkochte avonden staat de truck nu op <strong>vaste standplaatsen</strong> in Pijnacker en Nootdorp — met een loyale klantenkring die steeds maar groeit.
+      </p>
+      <p>
+        "Mensen proeven het verschil. Sommige klanten komen naar <strong>elke standplaats</strong> voor de burgers en friet."
+        <br />— <strong>Eliroy Dijkstra, oprichter</strong>
+      </p>
+
+      <div class="about-stats" style="margin-top: 40px;">
+        <div class="stat">
+          <div class="stat-number">7K+</div>
+          <div class="stat-label">Instagram volgers</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Grasgevoerd rundvlees</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">4×</div>
+          <div class="stat-label">Standplaatsen per week</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">☀️</div>
+          <div class="stat-label">Dagverse ingrediënten</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-img-wrap fade-up" style="transition-delay: 0.15s;">
+      <img
+        src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=700&auto=format&fit=crop&q=80"
+        alt="Smashburger close-up"
+      />
+      <div class="about-img-label">Est. 2024 — Pijnacker</div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="menu" id="menu">
+    <div class="section-label fade-up">Het Menu</div>
+    <h2 class="fade-up">VERLEIDING OP<br /><span class="red">EEN BUN</span></h2>
+    <p class="menu-intro fade-up">
+      Geen franje, geen geïmporteerd vriesvlees. Alleen de beste ingrediënten, bereid met liefde en vakmanschap. Elke maand verschijnt er een wisselende special op het bord.
+    </p>
+
+    <div class="menu-grid">
+      <div class="menu-card fade-up">
+        <div class="menu-num">01</div>
+        <span class="menu-emoji">🍔</span>
+        <div class="menu-title">Classic Smashburger</div>
+        <p class="menu-desc">
+          De originele. 100% rundvlees van grasgevoerde koeien, stevig platgedrukt op de grill voor een knapperige, gekarameliseerde korst. Op een dagvers briochebroodje van Bakkerij Rijnbeek.
+        </p>
+        <span class="menu-tag">Huisfavoriet</span>
+      </div>
+
+      <div class="menu-card fade-up" style="transition-delay: 0.1s;">
+        <div class="menu-num">02</div>
+        <span class="menu-emoji">🥓</span>
+        <div class="menu-title">Bacon Jam Smashburger</div>
+        <p class="menu-desc">
+          Een explosie van smaken. Knapperig gebakken bacon, met een zoet-hartige spread van gekarameliseerde uien, honing, bastardsuiker en balsamicoazijn — de perfecte tegenhanger van het sappige vlees.
+        </p>
+        <span class="menu-tag">Bestseller</span>
+      </div>
+
+      <div class="menu-card fade-up" style="transition-delay: 0.2s;">
+        <div class="menu-num">03</div>
+        <span class="menu-emoji">🍟</span>
+        <div class="menu-title">Verse Friet</div>
+        <p class="menu-desc">
+          Geleverd door Friethoes uit Haarlem, bekend om hun verse, bekroonde friet. Knapperig van buiten, zacht van binnen. De perfecte metgezel bij elke burger.
+        </p>
+        <span class="menu-tag">Must-order</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px; padding: 28px 36px; border: 1px solid rgba(232,184,75,0.2); background: rgba(232,184,75,0.04); border-radius: 2px;" class="fade-up">
+      <span style="font-size:0.78rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold);">🔥 Komende specials</span>
+      <p style="margin-top: 10px; font-size: 0.95rem; color: rgba(245,234,216,0.65); line-height:1.6;">
+        Binnenkort: <strong style="color:var(--cream)">Halal Kipburger</strong> — Eliroy breidt het menu elke maand uit met een nieuwe wisselende special. Volg Instagram om als eerste te weten wat eraan komt.
+      </p>
+    </div>
+  </section>
+
+  <!-- QUALITY -->
+  <section class="quality" id="kwaliteit">
+    <div class="section-label fade-up">De Kwaliteit</div>
+    <h2 class="fade-up">LOKALE TROTS,<br /><span class="red">ECHTE SMAAK</span></h2>
+
+    <div class="quality-grid">
+      <div>
+        <div class="quality-item fade-up">
+          <div class="quality-icon">🥩</div>
+          <div>
+            <h3>Slagerij Aad van Eijk</h3>
+            <p>Grasgevoerd rundvlees uit Voorschoten. Aad van Eijk staat bekend om zijn eigen vee — vlees met smaak, herkomst en karakter. Geen compromissen.</p>
+          </div>
+        </div>
+        <div class="quality-item fade-up" style="transition-delay: 0.1s;">
+          <div class="quality-icon">🍞</div>
+          <div>
+            <h3>Bakkerij Rijnbeek</h3>
+            <p>Elke ochtend vers bezorgde briochebroodjes vanuit Pijnacker. Zacht, luchtig en perfect voor de sappige smashburger die erop past.</p>
+          </div>
+        </div>
+        <div class="quality-item fade-up" style="transition-delay: 0.2s;">
+          <div class="quality-icon">🍟</div>
+          <div>
+            <h3>Friethoes Haarlem</h3>
+            <p>Verse, bekroonde friet van één van de beste fritlèveranciers van Nederland. Elke portie friet is een feestje apart.</p>
+          </div>
+        </div>
+        <div class="quality-item fade-up" style="transition-delay: 0.3s;">
+          <div class="quality-icon">🔥</div>
+          <div>
+            <h3>Het Maillard-Effect</h3>
+            <p>De smashburger wordt stevig platgedrukt op een gloeiend hete plaat. Hierdoor karameliseert het vlees aan de buitenkant — voor die onweerstaanbare knapperige korst.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="quality-visual fade-up" style="transition-delay: 0.15s;">
+        <div class="quality-quote">
+          <blockquote>"IK WERK ALLEEN MET PRODUCTEN WAAR IK ZELF ACHTER STA."</blockquote>
+          <cite>— Eliroy Dijkstra, The Grill of Eli</cite>
+        </div>
+        <img
+          class="quality-img"
+          src="https://images.unsplash.com/photo-1607013251379-e6eecfffe234?w=700&auto=format&fit=crop&q=80"
+          alt="Burger gegrild"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section class="locations" id="locaties">
+    <div class="section-label fade-up">Waar te vinden</div>
+    <h2 class="fade-up">DEZE WEEK<br /><span class="red">IN JOUW BUURT</span></h2>
+
+    <div class="locations-grid">
+      <div class="loc-card fade-up">
+        <div class="loc-day">Dinsdag</div>
+        <div class="loc-time">16:00 – 19:30</div>
+        <div class="loc-name">Het Baken</div>
+        <div class="loc-address">Pijnacker</div>
+      </div>
+      <div class="loc-card fade-up" style="transition-delay: 0.08s;">
+        <div class="loc-day">Woensdag</div>
+        <div class="loc-time">12:00 – 19:00</div>
+        <div class="loc-name">Gildeweg</div>
+        <div class="loc-address">Nootdorp</div>
+      </div>
+      <div class="loc-card fade-up" style="transition-delay: 0.16s;">
+        <div class="loc-day">Donderdag</div>
+        <div class="loc-time">16:00 – 19:30</div>
+        <div class="loc-name">Raaigras</div>
+        <div class="loc-address">Pijnacker Zuid</div>
+      </div>
+      <div class="loc-card fade-up" style="transition-delay: 0.24s;">
+        <div class="loc-day">Vrijdag</div>
+        <div class="loc-time">12:00 – 19:00</div>
+        <div class="loc-name">Gildeweg</div>
+        <div class="loc-address">Nootdorp</div>
+      </div>
+    </div>
+
+    <p class="locations-note fade-up" style="margin-top:32px;">
+      ⚠️ Standplaatsen kunnen wijzigen. Volg
+      <a href="https://www.instagram.com/thegrillofeli/" target="_blank">@thegrillofeli op Instagram</a>
+      voor de laatste updates.
+    </p>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section class="social-proof" id="reviews">
+    <div class="section-label fade-up">Wat mensen zeggen</div>
+    <h2 class="fade-up">DE BUURT<br /><span class="red">HEEFT GESPROKEN</span></h2>
+
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">
+          "De bacon jam burger is een openbaring. Ik ben nog nooit zo ver gereden voor een foodtruck — en ik doe het elke week opnieuw. Die friet is ook godgelijk."
+        </p>
+        <div class="review-author">— Johan K. <span>/ Pijnacker</span></div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay: 0.1s;">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">
+          "Alles van de buns tot de truffle fries was perfect. Mijn broer's reactie zegt alles — dit is eerlijk, no-fuss eten dat echt knalt. Staat definitief op mijn must-try lijst."
+        </p>
+        <div class="review-author">— Daniella <span>/ The Hungry Hague</span></div>
+      </div>
+      <div class="review-card fade-up" style="transition-delay: 0.2s;">
+        <div class="stars">★★★★★</div>
+        <p class="review-text">
+          "In korte tijd al meermaals uitverkocht geweest — dat zegt genoeg. De kwaliteit van de ingrediënten proef je direct. Eliroy doet dit met hart en ziel."
+        </p>
+        <div class="review-author">— Telstar Online <span>/ Pijnacker-Nootdorp</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTAGRAM CTA -->
+  <section class="insta-cta">
+    <div class="section-label fade-up" style="justify-content:center;">Blijf op de hoogte</div>
+    <h2 class="fade-up">VOLG <span class="red">DE TRUCK</span></h2>
+    <p class="fade-up">Dagelijkse updates, locaties, specials en meer — alleen op Instagram.</p>
+    <a
+      href="https://www.instagram.com/thegrillofeli/"
+      target="_blank"
+      class="btn-primary fade-up"
+      style="display:inline-flex;"
+    >
+      @thegrillofeli →
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand"><span>THE GRILL</span> OF ELI</div>
+        <p class="footer-tagline">Smashburgers &amp; verse friet — met liefde gemaakt in Pijnacker &amp; Nootdorp.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigatie</h4>
+        <ul>
+          <li><a href="#over">Over ons</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#kwaliteit">Kwaliteit</a></li>
+          <li><a href="#locaties">Locaties</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4 style="font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,234,216,0.35);margin-bottom:16px;">Contact</h4>
+        <p>📱 <a href="tel:+31611887234">+31 6 11887234</a></p>
+        <p>✉️ <a href="/cdn-cgi/l/email-protection#aacfc6c3d8c5d3cec3c0c1d9ded8cbeac2c5dec7cbc3c684c9c5c7"><span class="__cf_email__" data-cfemail="47222b2e35283e232e2d2c34333526072f28332a262e2b6924282a">[email&#160;protected]</span></a></p>
+        <p>📍 Pijnacker &amp; Nootdorp</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 The Grill of Eli — Alle rechten voorbehouden</div>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/thegrillofeli/" target="_blank" class="social-icon" title="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://www.tiktok.com/@the_grill_of_eli" target="_blank" class="social-icon" title="TikTok">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.38a8.16 8.16 0 004.77 1.52V7.45a4.85 4.85 0 01-1-.76z"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/p/The-grill-of-eli-61559735166974/" target="_blank" class="social-icon" title="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Fade-up on scroll — mark already-visible elements immediately
+    const fadeEls = document.querySelectorAll('.fade-up');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+      fadeEls.forEach(el => observer.observe(el));
+    } else {
+      // Fallback: maak alles direct zichtbaar
+      fadeEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
